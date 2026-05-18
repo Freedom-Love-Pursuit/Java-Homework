@@ -1,5 +1,7 @@
 package com.neudu.tms.view;
 
+import com.neudu.tms.service.Customer;
+
 import java.util.Scanner;
 
 public class AdminLoginMenu {
@@ -91,11 +93,98 @@ public class AdminLoginMenu {
         //客户管理的三个功能
 
        //1.入住登记
-    public void customerManageFunction1(){}
+    public void customerManageFunction1(){
+     while ( true){
+         System.out.println("1.查询客户信息数据列表");
+         System.out.println("2.登记客户入住信息");
+         System.out.println("3.删除客户信息");
+         System.out.println("4.修改客户信息");
+         System.out.println("5.返回");
+         Scanner sc = new Scanner(System.in);
+         System.out.print("请输入您的选择:");
+         int result = sc.nextInt();
+         switch (result) {
+             case 1:
+                 System.out.println("查询客户信息数据列表");
+                 InquiryCustomer();
+                 break;
+             case 2:
+                 System.out.println("登记客户入住信息");
+                 break;
+             case 3:
+                 System.out.println("删除客户信息");
+                 break;
+             case 4:
+                 System.out.println("修改客户信息");
+                 break;
+             case 5:
+                 return;
+             default:
+                 System.out.println("输入无效，请重新输入");
+         }
+
+
+
+
+
+     }
+
+    }
+//查询客户信息
+    public void InquiryCustomer(){
+
+        System.out.println("请输入客户姓名");
+        Scanner sc = new Scanner(System.in);
+        String name = sc.next();
+        System.out.println("请输入客户类型");
+        String type = sc.next();
+        //读取文件数据，判断客户是否存在，此处可以遍历文件，一一比对姓名和客户类型信息，得到该用户
+        Customer customer = new Customer();
+        //此处需要代码判断，如果客户不存在，则输出无此用户
+        customer.display();
+
+    }
+    //登记客户入住信息
+    public void RegisterCustomer(){
+        Scanner sc= new Scanner(System.in);
+        System.out.println("请输入客户姓名");
+        String name = sc.next();
+        System.out.println("请输入客户出生日期");
+        String birth = sc.next();
+        System.out.println("请输入客户性别");
+        String sex = sc.next();
+        System.out.println("请输入客户身份证号");
+        String ID = sc.next();
+        System.out.println("请输入客户血型");
+        String blood = sc.next();
+        System.out.println("请输入客户家属");
+        String family = sc.next();
+        System.out.println("请输入客户联系电话");
+        String phone = sc.next();
+        System.out.println("请输入楼栋");
+        String floor = sc.next();
+        System.out.println("请输入房间号");
+        String room = sc.next();
+        System.out.println("请输入床位号");
+        String bed = sc.next();
+        System.out.println("请输入入住时间");
+        String inTime = sc.next();
+        System.out.println("请输入预计退住时间");
+        String outTime = sc.next();
+        Customer customer = new Customer(name,birth,sex,ID,blood,family,phone,floor,room,bed,inTime,outTime);
+        //此处需要代码存储用户信息
+
+
+
+
+    }
+
+
        //2.退住登记
     public void customerManageFunction2(){}
        //3.外出登记
     public void customerManageFunction3(){}
+
 
 
 
