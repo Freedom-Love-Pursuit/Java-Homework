@@ -45,6 +45,10 @@ public class Customer {
         this.age= CalculateAge(birth);
     }
 
+    public String getBed() {
+        return bed;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -108,4 +112,7 @@ public class Customer {
     }
 
 
+    public void setOutTime(String outTime) {
+        this.outTime = outTime;
+    }
 }

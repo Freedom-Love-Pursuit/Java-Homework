@@ -1,7 +1,9 @@
 package com.neudu.tms.view;
 
 import com.neudu.tms.service.Customer;
+import com.neudu.tms.service.Room;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminLoginMenu {
@@ -95,6 +97,7 @@ public class AdminLoginMenu {
        //1.入住登记
     public void customerManageFunction1(){
      while ( true){
+         System.out.println("==========入住登记===========");
          System.out.println("1.查询客户信息数据列表");
          System.out.println("2.登记客户入住信息");
          System.out.println("3.删除客户信息");
@@ -110,12 +113,15 @@ public class AdminLoginMenu {
                  break;
              case 2:
                  System.out.println("登记客户入住信息");
+                 RegisterCustomer();
                  break;
              case 3:
                  System.out.println("删除客户信息");
+                 DelateCustomer();
                  break;
              case 4:
                  System.out.println("修改客户信息");
+                 ModifyCustomer();
                  break;
              case 5:
                  return;
@@ -130,19 +136,25 @@ public class AdminLoginMenu {
      }
 
     }
-//查询客户信息
-    public void InquiryCustomer(){
-
+    //重复使用的查询方法
+    public ArrayList<Customer> Inquiry() {
         System.out.println("请输入客户姓名");
         Scanner sc = new Scanner(System.in);
         String name = sc.next();
+        //读取文件数据，判断客户是否存在，此处可以遍历文件，一一比对姓名和客户类型信息，得到该用户
+        //但是此处可能有多个用户，可以新建一个Arraylist集合存储所有符合条件的用户
+        ArrayList< Customer> customersList = new ArrayList<>();
+        return customersList;
+    }
+//查询客户信息
+    public void InquiryCustomer(){
+        ArrayList<Customer> customersList = Inquiry();
+       Scanner sc= new Scanner(System.in);
         System.out.println("请输入客户类型");
         String type = sc.next();
-        //读取文件数据，判断客户是否存在，此处可以遍历文件，一一比对姓名和客户类型信息，得到该用户
-        Customer customer = new Customer();
-        //此处需要代码判断，如果客户不存在，则输出无此用户
-        customer.display();
-
+        //将customerList集合中客户类型与该客户类型相同的取出来,得到rightCustomerList
+        ArrayList< Customer>rightCustomerList = new ArrayList<>();
+      //最后代码再判断指定用户并展示
     }
     //登记客户入住信息
     public void RegisterCustomer(){
@@ -163,25 +175,82 @@ public class AdminLoginMenu {
         String phone = sc.next();
         System.out.println("请输入楼栋");
         String floor = sc.next();
+        //此处应该有代码展示所有房间号，供管理员选择，还可以添加该房间是否有空闲床位
         System.out.println("请输入房间号");
         String room = sc.next();
+        //此处管理员选择完房间号后，有代码能展示空闲的床位
         System.out.println("请输入床位号");
         String bed = sc.next();
         System.out.println("请输入入住时间");
         String inTime = sc.next();
         System.out.println("请输入预计退住时间");
         String outTime = sc.next();
+        //此处还需要代码判断退住时间在入住时间之后
         Customer customer = new Customer(name,birth,sex,ID,blood,family,phone,floor,room,bed,inTime,outTime);
-        //此处需要代码存储用户信息
+        //用户创建完毕，此处需要代码持久化存储用户信息
 
+    }
+    //删除客户信息
+    public void DelateCustomer(){
+        //此处应该先查询特定用户，但是我这个查询返回的是void,因为我是直接把查询封装为一个特定方法
+        //不是通用的，所以此处有点矛盾，除非在查询功能中再调用一个方法能返回customer
+        //这里先假设有要删除的用户
+        Customer customer = new Customer();
+        //这里的逻辑隐藏有两种方法：
+        // 1.新增用户isDelated属性来逻辑删除用户
+        //2.把用户信息真正从文件中删除 采用读取-过滤-重写
+        Room.Bed bed=customer.getAssignedBed();
+        bed.setCustomer(null);
+        bed.setOccupied( false);
+        //用户还有属性为床位使用详情信息，需要隐藏该床位使用详情信息
 
+    }
+    //修改客户信息
+    public void ModifyCustomer(){
+      Customer customer = new Customer();
+      Scanner sc= new Scanner(System.in);
+      System.out.println("请输入更改的退住时间");
+      String outTime = sc.next();
+      customer.setOutTime(outTime);
+    }
+
+       //2.退住登记
+    public void customerManageFunction2(){
+        while ( true){
+            System.out.println("==========退住登记===========");
+            System.out.println("1.浏览和审核退住登记信息");
+            System.out.println("2.查询客户退住登记信息列表");
+            System.out.println("3.审核退住申请");
+            System.out.println("4.返回");
+            Scanner sc = new Scanner(System.in);
+            System.out.print("请输入您的选择:");
+            int result = sc.nextInt();
+            switch (result) {
+                case 1:
+                    System.out.println("浏览和审核退住登记信息");
+                    break;
+                case 2:
+                    System.out.println("查询客户退住登记信息列表");
+                    break;
+                case 3:
+                    System.out.println("审核退住申请");
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("输入无效，请重新输入");
+                    continue;
+            }
+        }
+    }
+    //浏览和审核退住登记信息
+    public void LookThroughCheckOut(){
+          //遍历文件中所有退住登记信息，并展示
+    }
+    public void InquiryCheckOut(){
 
 
     }
-
-
-       //2.退住登记
-    public void customerManageFunction2(){}
        //3.外出登记
     public void customerManageFunction3(){}
 
