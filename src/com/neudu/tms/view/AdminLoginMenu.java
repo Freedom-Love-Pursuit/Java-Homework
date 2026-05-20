@@ -377,6 +377,7 @@ public class AdminLoginMenu {
             Scanner sc = new Scanner(System.in);
             System.out.print("请输入您的选择:");
             int result = sc.nextInt();
+            int a=10;
             switch (result) {
                 case 1:
                     System.out.println("基础数据维护");
