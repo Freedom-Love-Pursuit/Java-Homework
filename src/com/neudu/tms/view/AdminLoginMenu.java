@@ -115,6 +115,7 @@ public class AdminLoginMenu {
                  System.out.println("登记客户入住信息");
                  RegisterCustomer();
                  break;
+
              case 3:
                  System.out.println("删除客户信息");
                  DelateCustomer();
